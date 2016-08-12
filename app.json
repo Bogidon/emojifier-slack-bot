@@ -2,6 +2,6 @@
   "name": "Emojifier",
   "description": "Emojify your Slack with a bot.",
   "repository": "https://github.com/Bogidon/emojifier-slack-bot",
-  "logo": "https://cdn4.iconfinder.com/data/icons/desktop-halloween/256/Hat.png",
+  "logo": "https://github.com/Bogidon/emojifier-slack-bot/raw/master/public/hat_big.png",
   "keywords": ["ruby", "emoji", "add", "emojify", "emojifier", "slack"]
 }
