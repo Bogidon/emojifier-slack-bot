@@ -11,7 +11,7 @@ gem 'celluloid-io'
 gem "mini_magick"
 
 # Webdriver for browser automation
-gem 'selenium-webdriver', '~> 2.53', '>= 2.53.4'
+gem 'selenium-webdriver'
 
 gem 'rack'
 

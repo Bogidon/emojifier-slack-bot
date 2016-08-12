@@ -6,21 +6,35 @@ class EmojiUploader
 		slack_url = ENV["SLACK_TEAM_URL"]
 		google_email = ENV["GOOGLE_ACCOUNT_EMAIL"]
 		google_password = ENV["GOOGLE_ACCOUNT_PASSWORD"]
+		email = ENV["ACCOUNT_EMAIL"]
+		password = ENV["ACCOUNT_PASSWORD"]
+
+		puts "*" * 80
+		puts slack_url
 
 		driver = Selenium::WebDriver.for :firefox
 		driver.manage.timeouts.implicit_wait = 3
 		driver.navigate.to slack_url
 
-		slack_google_signin = driver.execute_script('return $("a.btn.btn_large")[0]')
-		slack_google_signin.click
+		if google_email && google_password
+			slack_google_signin = driver.execute_script('return $("a.btn.btn_large")[0]')
+			slack_google_signin.click
 
-		email_field = driver.find_element(:name => "Email")
-		email_field.send_keys google_email
-		email_field.submit
+			email_field = driver.find_element(:name => "Email")
+			email_field.send_keys google_email
+			email_field.submit
 
-		password_field = driver.find_element(:name => "Passwd")
-		password_field.send_keys google_password
-		password_field.submit
+			password_field = driver.find_element(:name => "Passwd")
+			password_field.send_keys google_password
+			password_field.submit
+		else
+			email_field = driver.find_element(:name => "email")
+			email_field.send_keys email
+
+			password_field = driver.find_element(:name => "password")
+			password_field.send_keys password
+			password_field.submit
+		end
 
 		wait = Selenium::WebDriver::Wait.new(:timeout => 10)
   		wait.until { 

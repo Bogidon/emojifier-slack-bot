@@ -25,8 +25,16 @@ The following environment variables are required:
 
 - `SLACK_API_TOKEN`
 - `SLACK_TEAM_URL`
+
+If using Google OAuth:
+
 - `GOOGLE_ACCOUNT_EMAIL`
 - `GOOGLE_ACCOUNT_PASSWORD`
+
+If using email + password:
+
+- `ACCOUNT_EMAIL`
+- `ACCOUNT_PASSWORD`
 
 you can put them in a `.env` file and run
 
