@@ -1,4 +1,4 @@
-# Emojifier Slack bot
+# Emojifier Slack bot ![](public/hat.png)
 
 Emojify your Slack with a bot.
 
