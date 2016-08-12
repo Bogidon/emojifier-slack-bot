@@ -2,6 +2,15 @@
 
 Emojify your Slack with a bot.
 
+## How it works
+
+In Slack: `@emojifier add <emoji name> <image url>`
+
+- downloads image and resizes it to aspect fit within 128px x 128px.
+- navigates Slack with the [Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver/) (because the Slack API doesn't allow for Emoji modification)
+- signs into Slack using Google Account (if you're using two step verification, [use an application specific password](https://support.google.com/accounts/answer/185833))
+
+
 ## Dependencies
 
 - ImageMagick
@@ -28,8 +37,8 @@ or otherwise just
 
 ## Running headless
 
-[Here's a great tutorial](http://elementalselenium.com/tips/38-headless). Options 1 and 2 do not require modifiying source code.
+> This bot won't work by default on screenless servers (AWS, DigitalOcean, etc). You'll need to use a virtual screen of sorts.
 
-This is what option 2 would look like:
+[Here's a great tutorial](http://elementalselenium.com/tips/38-headless). Options #1 and #2 don't require modifiying source code. This is what option #2 would look like:
 
 `xvfb-run dotenv bundle exec rackup`
