@@ -28,7 +28,7 @@ or otherwise just
 
 ## Running headless
 
-Here's a great tutorial. Options 1 and 2 do not require modifiying source code.
+[Here's a great tutorial](http://elementalselenium.com/tips/38-headless). Options 1 and 2 do not require modifiying source code.
 
 This is what option 2 would look like:
 
