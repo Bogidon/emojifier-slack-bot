@@ -43,6 +43,8 @@ class Emojifier < SlackRubyBot::Bot
       client.say(text: "I did not find an *emoji name* or *valid URL* in your message ಠ_ಠ\nusage: `@emojifier add <emoji name> <image url>`", channel: data.channel)
       next
     end
+
+    puts "got a request emoji named #{name} from #{url}"
     
     emojified_image_path = ImageFormatter.emojify_image(url)
 
