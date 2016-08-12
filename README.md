@@ -10,6 +10,7 @@ In Slack: `@emojifier add <emoji name> <image url>`
 - navigates Slack with the [Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver/) (because the Slack API doesn't allow for Emoji modification)
 - signs into Slack using Google Account (if you're using two step verification, [use an application specific password](https://support.google.com/accounts/answer/185833))
 
+![](public/demo.jpg)
 
 ## Dependencies
 
