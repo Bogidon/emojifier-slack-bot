@@ -25,3 +25,11 @@ you can put them in a `.env` file and run
 or otherwise just
 
 `bundle exec rackup`
+
+## Running headless
+
+Here's a great tutorial. Options 1 and 2 do not require modifiying source code.
+
+This is what option 2 would look like:
+
+`xvfb-run dotenv bundle exec rackup`
