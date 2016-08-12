@@ -2,7 +2,14 @@
 
 Emojify your Slack with a bot.
 
+## Dependencies
+
+- ImageMagick
+- Firefox
+
 ## Running
+
+`bundle install`
 
 The following environment variables are required:
 
@@ -11,12 +18,10 @@ The following environment variables are required:
 - `GOOGLE_ACCOUNT_EMAIL`
 - `GOOGLE_ACCOUNT_PASSWORD`
 
-then run 
-
-`bundle exec rackup`
-
-## Running Locally
-
-Put your environment variables in a `.env` file. Then run
+you can put them in a `.env` file and run
 
 `dotenv bundle exec rackup`
+
+or otherwise just
+
+`bundle exec rackup`
