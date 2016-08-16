@@ -12,6 +12,11 @@ In Slack: `@emojifier add <emoji name> <image url>`
 
 ![](public/demo.png)
 
+### ⚠️  Won't work on Heroku 
+Heroku doesn't let you do things like install Firefox and use virtual screens 😞
+
+I could be wrong though so if you know a way to make it work, let me know!
+
 ## Dependencies
 
 - ImageMagick
@@ -51,3 +56,8 @@ or otherwise just
 [Here's a great tutorial](http://elementalselenium.com/tips/38-headless). Options #1 and #2 don't require modifiying source code. This is what option #2 would look like:
 
 `xvfb-run dotenv bundle exec rackup`
+
+### Multiple headless instances on same machine
+
+For each instance:
+`PORT=<YOUR_PORT> xvfb-run -a dotenv bundle exec rackup`
