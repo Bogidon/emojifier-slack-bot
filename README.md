@@ -1,28 +1,20 @@
 # Emojifier Slack bot ![](public/hat.png)
 
-Emojify your Slack with a bot.
+A bot that lets you add custom Slack emoji by URL.
 
-## How it works
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+### How it works
 
 In Slack: `@emojifier add <emoji name> <image url>`
 
 - downloads image and resizes it to aspect fit within 128px x 128px.
-- navigates Slack with the [Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver/) (because the Slack API doesn't allow for Emoji modification)
-- signs into Slack using Google Account (if you're using two step verification, [use an application specific password](https://support.google.com/accounts/answer/185833))
+- navigates Slack with [PhantomJS](http://phantomjs.org) (because the Slack API doesn't allow adding emoji)
+- signs into Slack using Google Account or email & password (if you're using two step verification, [use an application specific password](https://support.google.com/accounts/answer/185833))
 
 ![](public/demo.png)
 
-### ⚠️  Won't work on Heroku 
-Heroku doesn't let you do things like install Firefox and use virtual screens 😞
-
-I could be wrong though so if you know a way to make it work, let me know!
-
-## Dependencies
-
-- ImageMagick
-- Firefox
-
-## Running
+### Running Locally
 
 `bundle install`
 
@@ -48,16 +40,3 @@ you can put them in a `.env` file and run
 or otherwise just
 
 `bundle exec rackup`
-
-## Running headless
-
-> This bot won't work by default on screenless servers (AWS, DigitalOcean, etc). You'll need to use a virtual screen of sorts.
-
-[Here's a great tutorial](http://elementalselenium.com/tips/38-headless). Options #1 and #2 don't require modifiying source code. This is what option #2 would look like:
-
-`xvfb-run dotenv bundle exec rackup`
-
-### Multiple headless instances on same machine
-
-For each instance:
-`PORT=<YOUR_PORT> xvfb-run -a dotenv bundle exec rackup`

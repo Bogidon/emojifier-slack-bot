@@ -1,19 +1,20 @@
-#!/usr/bin/env ruby
+# This file is used by Rack-based servers to start the application.
 
-$LOAD_PATH.unshift(File.join(__dir__, 'lib'))
+$LOAD_PATH.unshift(File.dirname(__FILE__))
 
-require 'emojifier'
-require 'rack'
-require 'rack/server'
+require_relative 'lib/emojifier'
+require_relative 'lib/web'
+
+Thread.abort_on_exception = true
 
 Thread.new do
-	Emojifier.run
+  begin
+    Emojifier::Bot.run
+  rescue Exception => e
+    STDERR.puts "ERROR: #{e}"
+    STDERR.puts e.backtrace
+    raise e
+  end
 end
 
-app = lambda { |_| [200, {}, 'Hello!'] }
-
-Rack::Server.start(
-  app: app,
-  Port: ENV['PORT'],
-  server: 'webrick'
-)
+run Emojifier::Web
