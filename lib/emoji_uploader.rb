@@ -1,62 +1,71 @@
-require "selenium-webdriver"
+require 'capybara'
+require 'capybara/dsl'
+require 'capybara/poltergeist'
+require 'colorize'
+require 'rspec'
 
-class EmojiUploader
+module Emojifier
+	class Uploader
+		include Capybara::DSL
 
-	def self.upload_from_path(path, name)
-		slack_url = ENV["SLACK_TEAM_URL"]
-		google_email = ENV["GOOGLE_ACCOUNT_EMAIL"]
-		google_password = ENV["GOOGLE_ACCOUNT_PASSWORD"]
-		email = ENV["ACCOUNT_EMAIL"]
-		password = ENV["ACCOUNT_PASSWORD"]
+		def self.upload_from_path(path, name)
+			slack_url 		= ENV["SLACK_TEAM_URL"]
+			google_email 	= ENV["GOOGLE_ACCOUNT_EMAIL"]
+			google_password = ENV["GOOGLE_ACCOUNT_PASSWORD"]
+			email 			= ENV["ACCOUNT_EMAIL"]
+			password 		= ENV["ACCOUNT_PASSWORD"]
 
-		puts "*" * 80
-		puts slack_url
+			poltergeist_options = {
+				phantomjs_logger: File.open(File::NULL, "w"),
+				js_errors: false
+			}
 
-		driver = Selenium::WebDriver.for :firefox
-		driver.manage.timeouts.implicit_wait = 3
-		driver.navigate.to slack_url
+			Capybara.reset!
+			Capybara.configure do |c|
+			  	c.javascript_driver = :poltergeist
+			  	c.default_driver = :poltergeist
+			  	c.default_max_wait_time = 10
+			  	c.register_driver :poltergeist do |app|
+				  	Capybara::Poltergeist::Driver.new(app, poltergeist_options)
+				end
+			end
 
-		if google_email && google_password
-			slack_google_signin = driver.execute_script('return $("a.btn.btn_large")[0]')
-			slack_google_signin.click
+			# Visiting Site
+			puts "ℹ️  Visiting #{slack_url}".light_blue
 
-			email_field = driver.find_element(:name => "Email")
-			email_field.send_keys google_email
-			email_field.submit
+			s = Capybara.current_session
+			s.visit slack_url
 
-			password_field = driver.find_element(:name => "Passwd")
-			password_field.send_keys google_password
-			password_field.submit
-		else
-			email_field = driver.find_element(:name => "email")
-			email_field.send_keys email
+			# Authentication
+			if google_email && google_password
+				s.click_link_or_button "Google"
+				
+				s.fill_in("Email", :with => google_email)
+				s.click_button "next"
 
-			password_field = driver.find_element(:name => "password")
-			password_field.send_keys password
-			password_field.submit
+				s.fill_in("Passwd", :with => google_password)
+				s.click_button "signIn"
+
+				puts "ℹ️  Logged in with Google".light_blue
+			else 
+				s.fill_in("email", :with => google_email)
+				s.fill_in("password", :with => password)
+
+				s.click_link_or_button "signin_btn"
+
+				puts "ℹ️  Logged in with Email and Password".light_blue
+			end
+
+			# Uploading emoji
+			s.visit "#{slack_url}/customize/emoji"
+			
+			s.fill_in("emojiname", :with => name)
+			s.attach_file("emojiimg", path)
+
+			s.click_link_or_button "Save New Emoji"
+			return true
+		rescue
+			return false
 		end
-
-		wait = Selenium::WebDriver::Wait.new(:timeout => 10)
-  		wait.until { 
-  			escaped_url = Regexp.escape(slack_url)
-  			string = "#{escaped_url}.+"
-  			regexp = Regexp.new string
-  			next driver.current_url =~ regexp
-  		}
-
-		driver.navigate.to "#{slack_url}/customize/emoji"
-
-		emoji_name_field = driver.find_element(:id => "emojiname")
-		emoji_name_field.send_keys name
-
-		emoji_upload_field = driver.find_element(:id => "emojiimg")
-		emoji_upload_field.send_keys path
-		emoji_upload_field.submit
-
-		driver.quit
-
-		return true
-	rescue
-		return false
 	end
 end

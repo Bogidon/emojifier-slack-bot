@@ -1,7 +1,48 @@
 {
-  "name": "Emojifier",
-  "description": "Emojify your Slack with a bot.",
-  "repository": "https://github.com/Bogidon/emojifier-slack-bot",
-  "logo": "https://github.com/Bogidon/emojifier-slack-bot/raw/master/public/hat_big.png",
-  "keywords": ["ruby", "emoji", "add", "emojify", "emojifier", "slack"]
+    "name": "Emojifier",
+    "description": "Emojify your Slack with a bot.",
+    "repository": "https://github.com/Bogidon/emojifier-slack-bot",
+    "logo": "https://github.com/Bogidon/emojifier-slack-bot/raw/master/public/hat_big.png",
+    "keywords": [
+        "ruby",
+        "emoji",
+        "add",
+        "emojify",
+        "emojifier",
+        "slack"
+    ],
+    "buildpacks": [
+        {
+            "url": "https://github.com/stomita/heroku-buildpack-phantomjs"
+        },
+        {
+            "url": "heroku/ruby"
+        }
+    ],
+    "env": {
+        "SLACK_API_TOKEN": {
+            "description": "Your Slack bot API token. Create a new bot here: https://my.slack.com/services/new/bot",
+            "required": true
+        },
+        "SLACK_TEAM_URL": {
+            "description": "Your Slack team URL. E.g. https://rubydevelopers.slack.com",
+            "required": true
+        },
+        "GOOGLE_ACCOUNT_EMAIL": {
+            "description": "Your Google account email. Use this if you sign into your Slack team using Google OAuth.",
+            "required": false
+        },
+        "GOOGLE_ACCOUNT_PASSWORD": {
+            "description": "Your Google account password (or, if you're using two step verification, an application specific password: https://support.google.com/accounts/answer/185833). Use this if you sign into your Slack team using Google OAuth.",
+            "required": false
+        },
+        "ACCOUNT_EMAIL": {
+            "description": "Your account email. Use this if you don't use an OAuth provider.",
+            "required": false
+        },
+        "ACCOUNT_PASSWORD": {
+            "description": "Your account password. Use this if you don't use an OAuth provider.",
+            "required": false
+        }
+    }
 }

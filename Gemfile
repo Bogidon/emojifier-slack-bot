@@ -8,12 +8,21 @@ gem 'slack-ruby-bot'
 gem 'celluloid-io'
 
 # Ruby wrapper for ImageMagic
-gem "mini_magick"
+gem 'mini_magick'
 
-# Webdriver for browser automation
-gem 'selenium-webdriver'
+# PhantomJS driver for browser automation
+gem 'rspec'
+gem 'capybara'
+gem 'poltergeist'
 
-gem 'rack'
+# Color console output
+gem 'colorize'
+
+# To keep things alive
+gem 'sinatra'
+
+# ...and of course puma
+gem 'puma'
 
 group :development do
 	gem 'dotenv'
